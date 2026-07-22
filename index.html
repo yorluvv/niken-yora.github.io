@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Niken Yora | Sunset Glass Portfolio</title>
+    <meta
+      name="description"
+      content="A sunset glassmorphism portfolio with cloud layers, warm gradients, and a calm centered hero."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <canvas id="particles" aria-hidden="true"></canvas>
+
+    <header class="topbar">
+      <a class="brand" href="#home">Niken Yora</a>
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#certs">Credentials</a>
+        <a href="#projects">Projects</a>
+        <a href="#blog">Blog</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="home">
+      <section class="hero section">
+        <div class="hero-cloudscape" aria-hidden="true">
+          <div class="cloud cloud-a"></div>
+          <div class="cloud cloud-b"></div>
+          <div class="cloud cloud-c"></div>
+          <div class="cloud cloud-d"></div>
+          <div class="cloud cloud-e"></div>
+          <div class="cloud cloud-f"></div>
+          <div class="cloud cloud-g"></div>
+          <div class="cloud cloud-h"></div>
+          <div class="cloud cloud-i"></div>
+        </div>
+        <div class="hero-copy">
+          <p class="eyebrow">Sunset Portfolio</p>
+          <h1 class="hero-title">
+            <span id="profile-name">Niken Yora</span>
+            <span class="gradient-text">Creative Sky</span>
+            <span>Experience.</span>
+          </h1>
+          <p class="lede" id="profile-summary">
+            Creative builder shaping calm digital experiences with warm motion and thoughtful details.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">View Projects</a>
+            <a class="btn btn-secondary" href="#contact">Contact Me</a>
+          </div>
+          <div class="hero-focus">
+            <span>Current focus</span>
+            <strong id="profile-nickname">Dreaming UI systems</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="section-head">
+          <p class="eyebrow">About</p>
+          <h2>Soft, clear, and a little cinematic.</h2>
+        </div>
+        <div class="two-col">
+          <article class="glass card">
+            <p id="profile-about">
+              I design and build polished web experiences that feel calm to use and memorable to revisit.
+            </p>
+          </article>
+          <div id="stats-grid" class="stats-grid"></div>
+        </div>
+      </section>
+
+      <section class="section" id="skills">
+        <div class="section-head">
+          <p class="eyebrow">Skills</p>
+          <h2>Warm light, strong structure.</h2>
+        </div>
+        <div class="skills-layout">
+          <article class="glass card">
+            <canvas id="skillsChart" height="280"></canvas>
+          </article>
+          <article class="glass card">
+            <div id="skills-list" class="skills-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="certs">
+        <div class="section-head">
+          <p class="eyebrow">Credentials</p>
+          <h2>Certs and wins that show the trail.</h2>
+        </div>
+        <div id="certs-grid" class="grid cards-grid"></div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="section-head">
+          <p class="eyebrow">Projects</p>
+          <h2>Selected work above the evening clouds.</h2>
+        </div>
+        <div class="project-stage glass">
+          <div class="project-cloud project-cloud-left" aria-hidden="true"></div>
+          <div class="project-cloud project-cloud-right" aria-hidden="true"></div>
+          <div class="project-cloud project-cloud-top" aria-hidden="true"></div>
+          <div class="project-cloud project-cloud-bottom" aria-hidden="true"></div>
+          <div class="filters" id="project-filters" aria-label="Project filters"></div>
+          <div id="projects-grid" class="grid cards-grid"></div>
+        </div>
+      </section>
+
+      <section class="section" id="blog">
+        <div class="section-head">
+          <p class="eyebrow">Blog</p>
+          <h2>Notes from the sky log.</h2>
+        </div>
+        <div id="blog-grid" class="grid cards-grid"></div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="section-head">
+          <p class="eyebrow">Contact</p>
+          <h2>Let's build something gentle and useful.</h2>
+        </div>
+        <div class="two-col">
+          <article class="glass card">
+            <form class="contact-form">
+              <label>
+                Name
+                <input type="text" placeholder="Your name" />
+              </label>
+              <label>
+                Email
+                <input type="email" placeholder="you@example.com" />
+              </label>
+              <label>
+                Message
+                <textarea rows="5" placeholder="Tell me about the idea..."></textarea>
+              </label>
+              <button class="btn btn-primary" type="button">Send Message</button>
+            </form>
+          </article>
+          <article class="glass card contact-side">
+            <p class="meta-label">Reach out</p>
+            <a href="mailto:hello@example.com">hello@example.com</a>
+            <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Built for a sunset sky mood.</p>
+    </footer>
+  </body>
+</html>
