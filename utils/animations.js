@@ -1,15 +1,20 @@
 export function initAnimations() {
-  document.querySelectorAll(".section").forEach((section) => {
-    section.animate([{ opacity: 0, transform: "translateY(18px)" }, { opacity: 1, transform: "translateY(0)" }], {
-      duration: 700,
-      easing: "ease-out",
-      fill: "both",
-      delay: 100,
-    });
-  });
+  // Scroll-reveal via IntersectionObserver (GPU-safe, no scroll listener)
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+  );
 
-  const ticks = document.getElementById("ticks-container");
-  if (ticks) {
-    ticks.innerHTML = Array.from({ length: 12 }, () => "<span></span>").join("");
-  }
+  // Observe all section children that should animate in
+  document.querySelectorAll(".section-head, .card, .stat-card, .skill").forEach((el) => {
+    el.classList.add("reveal");
+    observer.observe(el);
+  });
 }

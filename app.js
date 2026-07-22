@@ -15,18 +15,23 @@ import { initParticles } from "./utils/particles.js";
 
 const byId = (id) => document.getElementById(id);
 
-byId("profile-name").textContent = profile.name;
-byId("profile-nickname").textContent = profile.nickname;
-byId("profile-summary").textContent = profile.summary;
-byId("profile-about").textContent = profile.about;
+// Profile data
+if (byId("profile-name"))     byId("profile-name").textContent     = profile.name;
+if (byId("profile-nickname")) byId("profile-nickname").textContent = profile.nickname;
+if (byId("profile-summary"))  byId("profile-summary").textContent  = profile.summary;
+if (byId("profile-about"))    byId("profile-about").textContent    = profile.about;
 
-renderStats(byId("stats-grid"), profile.stats);
-renderSkills(byId("skills-list"), skills);
-renderCerts(byId("certs-grid"), certs);
+// Render sections
+renderStats(byId("stats-grid"),       profile.stats);
+renderSkills(byId("skills-list"),     skills);
+renderCerts(byId("certs-grid"),       certs);
 renderProjects(byId("projects-grid"), projects);
-renderBlog(byId("blog-grid"), blog);
+renderBlog(byId("blog-grid"),         blog);
+
+// Init utilities
 initFilters(byId("project-filters"), projectFilters, projects, byId("projects-grid"));
 initChart(byId("skillsChart"), skills);
 initAnimations();
-initParticles(byId("particles"));
 
+// Sunset particle system — floating amber embers
+initParticles(byId("hero-particles"));

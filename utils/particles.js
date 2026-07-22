@@ -1,66 +1,104 @@
+/**
+ * Sunset Particle System — Floating ember/firefly particles
+ * Warm amber & peach tones drifting upward against the sunset sky.
+ * GPU-safe: animates via canvas only, no DOM layout triggers.
+ */
 export function initParticles(canvas) {
   if (!canvas) return;
+
   const ctx = canvas.getContext("2d");
-  const particles = [];
+  let W, H, particles = [], raf;
 
-  const resize = () => {
-    canvas.width = window.innerWidth * devicePixelRatio;
-    canvas.height = window.innerHeight * devicePixelRatio;
-    ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
-  };
+  const COLORS = [
+    "rgba(255, 230, 185, ALPHA)", // pale gold spark
+    "rgba(240, 168, 93,  ALPHA)", // golden hour amber
+    "rgba(217, 103, 72,  ALPHA)", // dusk rose ember
+    "rgba(247, 203, 176, ALPHA)", // warm peach glow
+    "rgba(232, 149, 72,  ALPHA)", // soft amber firefly
+  ];
 
-  const spawn = () => {
-    particles.length = 0;
-    for (let i = 0; i < 34; i += 1) {
-      particles.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        w: 70 + Math.random() * 160,
-        h: 20 + Math.random() * 40,
-        vx: 0.06 + Math.random() * 0.16,
-        vy: -0.02 + Math.random() * 0.05,
-        a: 0.035 + Math.random() * 0.09,
-      });
+  const COUNT = 55;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function rand(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  class Particle {
+    constructor() {
+      this.reset(true);
     }
-  };
 
-  const draw = () => {
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    particles.forEach((p) => {
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x > window.innerWidth + 180) p.x = -180;
-      if (p.y < -120) p.y = window.innerHeight + 120;
-      ctx.save();
-      ctx.globalAlpha = p.a;
-      ctx.fillStyle = "rgba(255, 244, 232, 1)";
-      ctx.shadowColor = "rgba(255, 156, 102, 0.26)";
-      ctx.shadowBlur = 18;
-      const gradient = ctx.createLinearGradient(p.x, p.y, p.x + p.w, p.y + p.h);
-      gradient.addColorStop(0, "rgba(255, 214, 163, 0.08)");
-      gradient.addColorStop(0.5, "rgba(255, 170, 120, 0.22)");
-      gradient.addColorStop(1, "rgba(255, 127, 89, 0.08)");
-      ctx.fillStyle = gradient;
-      cloudShape(ctx, p.x, p.y, p.w, p.h);
+    reset(initial = false) {
+      this.x     = rand(0, W);
+      this.y     = initial ? rand(0, H) : H + rand(10, 40);
+      this.r     = rand(1.2, 3.5);
+      this.speedY = rand(0.25, 0.85);
+      this.speedX = rand(-0.25, 0.25);
+      this.drift  = rand(0, Math.PI * 2); // wave phase
+      this.driftSpeed = rand(0.006, 0.016);
+      this.alpha  = rand(0.15, 0.75);
+      this.fadeDir = Math.random() > 0.5 ? 1 : -1;
+      this.fadeSpeed = rand(0.003, 0.009);
+      const c = COLORS[Math.floor(Math.random() * COLORS.length)];
+      this.color = c;
+    }
+
+    update() {
+      this.drift += this.driftSpeed;
+      this.x    += this.speedX + Math.sin(this.drift) * 0.45;
+      this.y    -= this.speedY;
+
+      this.alpha += this.fadeDir * this.fadeSpeed;
+      if (this.alpha >= 0.78 || this.alpha <= 0.08) this.fadeDir *= -1;
+
+      if (this.y < -20) this.reset();
+    }
+
+    draw() {
+      const col = this.color.replace("ALPHA", this.alpha.toFixed(2));
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = col;
       ctx.fill();
-      ctx.restore();
-    });
-    requestAnimationFrame(draw);
-  };
+    }
+  }
 
-  const cloudShape = (context, x, y, w, h) => {
-    context.beginPath();
-    context.ellipse(x + w * 0.24, y + h * 0.55, w * 0.22, h * 0.6, 0, 0, Math.PI * 2);
-    context.ellipse(x + w * 0.48, y + h * 0.34, w * 0.28, h * 0.82, 0, 0, Math.PI * 2);
-    context.ellipse(x + w * 0.72, y + h * 0.5, w * 0.2, h * 0.56, 0, 0, Math.PI * 2);
-    context.ellipse(x + w * 0.54, y + h * 0.7, w * 0.34, h * 0.34, 0, 0, Math.PI * 2);
-  };
+  function init() {
+    particles = [];
+    for (let i = 0; i < COUNT; i++) {
+      particles.push(new Particle());
+    }
+  }
 
-  resize();
-  spawn();
-  draw();
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of particles) {
+      p.update();
+      p.draw();
+    }
+    raf = requestAnimationFrame(loop);
+  }
+
+  function start() {
+    resize();
+    init();
+    loop();
+  }
+
   window.addEventListener("resize", () => {
     resize();
-    spawn();
   });
+
+  start();
+
+  // Expose cleanup for future unmounts
+  return () => {
+    cancelAnimationFrame(raf);
+    window.removeEventListener("resize", resize);
+  };
 }
