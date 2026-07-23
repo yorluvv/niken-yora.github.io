@@ -481,54 +481,128 @@ h2 {
 }
 
 /* ─── ABOUT SECTION ─── */
-.about-grid {
+.about-layout {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.about-text {
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
-.about-card p {
+.about-text p {
   font-size: 1.15rem;
   color: var(--ink-muted);
-  line-height: 1.7;
+  line-height: 1.8;
   margin: 0;
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+.about-text strong {
+  color: var(--ink-light);
+  font-weight: 600;
 }
 
-.stat-card {
+.about-text em {
+  color: var(--sunset-peach);
+  font-style: italic;
+}
+
+.tech-profile-card {
   background: var(--bg-card-dark);
   border: 1px solid var(--border-dark);
-  border-radius: 14px;
-  padding: 1.4rem;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  border-radius: 16px;
+  padding: 2.5rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 
+    0 12px 36px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: transform 0.35s, border-color 0.35s;
 }
 
-.stat-card:hover {
-  transform: translateY(-3px);
+.tech-profile-card:hover {
+  transform: translateY(-4px);
   border-color: var(--border-hover);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
-.stat-card strong {
-  display: block;
+.tech-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tech-label {
   font-family: var(--font-mono);
-  font-size: 2.1rem;
-  font-weight: 500;
-  color: var(--sunset-gold); /* Golden hour amber numerals */
-  margin-bottom: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.1em;
 }
 
-.stat-card span {
-  color: var(--ink-muted);
-  font-size: 0.85rem;
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--sunset-gold);
+  background: rgba(240, 168, 93, 0.15);
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(240, 168, 93, 0.3);
+}
+
+.tech-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.tech-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.tech-key {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--sunset-rose);
+  letter-spacing: 0.05em;
+}
+
+.tech-val {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink-light);
+}
+
+.dot-active {
+  width: 6px;
+  height: 6px;
+  background: var(--sunset-gold);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--sunset-gold);
+  animation: pulseActive 2s infinite;
+}
+
+@keyframes pulseActive {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+@media (max-width: 900px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
 }
 
 /* ─── SKILLS SECTION ─── */

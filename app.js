@@ -3,6 +3,7 @@ import { projects, projectFilters } from "./data/projects.js";
 import { certs } from "./data/certs.js";
 import { skills } from "./data/skills.js";
 import { blog } from "./data/blog.js";
+import { contact } from "./data/contact.js";
 import { renderProjects } from "./components/renderProjects.js";
 import { renderCerts } from "./components/renderCerts.js";
 import { renderSkills } from "./components/renderSkills.js";
@@ -19,7 +20,24 @@ const byId = (id) => document.getElementById(id);
 if (byId("profile-name"))     byId("profile-name").textContent     = profile.name;
 if (byId("profile-nickname")) byId("profile-nickname").textContent = profile.nickname;
 if (byId("profile-summary"))  byId("profile-summary").textContent  = profile.summary;
-if (byId("profile-about"))    byId("profile-about").textContent    = profile.about;
+
+// About text (paragraphs)
+const aboutContainer = byId("about-text-container");
+if (aboutContainer && profile.aboutParagraphs) {
+  aboutContainer.innerHTML = profile.aboutParagraphs.map(p => `<p>${p}</p>`).join("");
+} else if (byId("profile-about")) {
+  byId("profile-about").textContent = profile.about;
+}
+
+// Tech Profile
+if (profile.techProfile) {
+  if (byId("tech-status")) byId("tech-status").textContent = profile.techProfile.status;
+  if (byId("tech-callsign")) byId("tech-callsign").textContent = profile.techProfile.callsign;
+  if (byId("tech-base")) byId("tech-base").textContent = profile.techProfile.base;
+  if (byId("tech-institution")) byId("tech-institution").textContent = profile.techProfile.institution;
+  if (byId("tech-toolkit")) byId("tech-toolkit").textContent = profile.techProfile.toolkit;
+  if (byId("tech-specialty")) byId("tech-specialty").textContent = profile.techProfile.specialty;
+}
 
 // Render sections
 renderStats(byId("stats-grid"),       profile.stats);
@@ -27,6 +45,15 @@ renderSkills(byId("skills-list"),     skills);
 renderCerts(byId("certs-grid"),       certs);
 renderProjects(byId("projects-grid"), projects);
 renderBlog(byId("blog-grid"),         blog);
+
+// Contact info
+if (byId("contact-email-val"))    byId("contact-email-val").textContent = contact.email;
+if (byId("contact-email-link"))   byId("contact-email-link").href = "mailto:" + contact.email;
+if (byId("contact-github-val"))   byId("contact-github-val").textContent = contact.github;
+if (byId("contact-github-link"))  byId("contact-github-link").href = contact.githubLink;
+if (byId("contact-linkedin-val")) byId("contact-linkedin-val").textContent = contact.linkedin;
+if (byId("contact-linkedin-link"))byId("contact-linkedin-link").href = contact.linkedinLink;
+if (byId("contact-status-val"))   byId("contact-status-val").textContent = contact.status;
 
 // Init utilities
 initFilters(byId("project-filters"), projectFilters, projects, byId("projects-grid"));

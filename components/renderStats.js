@@ -1,4 +1,5 @@
 export function renderStats(container, items) {
+  if (!container) return;
   container.innerHTML = items
     .map(
       (item) => `
