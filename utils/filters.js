@@ -8,7 +8,8 @@ export function initFilters(container, filters, items, grid) {
     if (!button) return;
     const filter = button.dataset.filter;
     container.querySelectorAll("button").forEach((el) => el.classList.toggle("is-active", el === button));
-    grid.querySelectorAll(".project").forEach((card, index) => {
+    
+    Array.from(grid.children).forEach((card, index) => {
       const show = filter === "All" || items[index].category === filter;
       card.style.display = show ? "" : "none";
     });

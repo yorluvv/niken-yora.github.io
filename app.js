@@ -2,13 +2,13 @@ import { profile } from "./data/profile.js";
 import { projects, projectFilters } from "./data/projects.js";
 import { certs } from "./data/certs.js";
 import { skills } from "./data/skills.js";
-import { blog } from "./data/blog.js";
+import { experience, experienceFilters } from "./data/experience.js";
 import { contact } from "./data/contact.js";
 import { renderProjects } from "./components/renderProjects.js";
 import { renderCerts } from "./components/renderCerts.js";
 import { renderSkills } from "./components/renderSkills.js";
 import { renderStats } from "./components/renderStats.js";
-import { renderBlog } from "./components/renderBlog.js";
+import { renderExperience } from "./components/renderExperience.js";
 import { initChart } from "./utils/chart.js";
 import { initFilters } from "./utils/filters.js";
 import { initAnimations } from "./utils/animations.js";
@@ -42,21 +42,24 @@ if (profile.techProfile) {
 // Render sections
 renderStats(byId("stats-grid"),       profile.stats);
 renderSkills(byId("skills-list"),     skills);
-renderCerts(byId("certs-grid"),       certs);
+renderCerts(byId("certs-list"),       certs);
 renderProjects(byId("projects-grid"), projects);
-renderBlog(byId("blog-grid"),         blog);
+renderExperience(byId("experience-grid"), experience);
 
 // Contact info
-if (byId("contact-email-val"))    byId("contact-email-val").textContent = contact.email;
-if (byId("contact-email-link"))   byId("contact-email-link").href = "mailto:" + contact.email;
-if (byId("contact-github-val"))   byId("contact-github-val").textContent = contact.github;
-if (byId("contact-github-link"))  byId("contact-github-link").href = contact.githubLink;
-if (byId("contact-linkedin-val")) byId("contact-linkedin-val").textContent = contact.linkedin;
-if (byId("contact-linkedin-link"))byId("contact-linkedin-link").href = contact.linkedinLink;
-if (byId("contact-status-val"))   byId("contact-status-val").textContent = contact.status;
+if (byId("contact-email-val"))      byId("contact-email-val").textContent    = contact.email;
+if (byId("contact-email-link"))     byId("contact-email-link").href          = contact.emailLink;
+if (byId("contact-github-val"))     byId("contact-github-val").textContent   = contact.github;
+if (byId("contact-github-link"))    byId("contact-github-link").href         = contact.githubLink;
+if (byId("contact-linkedin-val"))   byId("contact-linkedin-val").textContent = contact.linkedin;
+if (byId("contact-linkedin-link"))  byId("contact-linkedin-link").href       = contact.linkedinLink;
+if (byId("contact-instagram-val"))  byId("contact-instagram-val").textContent= contact.instagram;
+if (byId("contact-instagram-link")) byId("contact-instagram-link").href      = contact.instagramLink;
+if (byId("contact-status-val"))     byId("contact-status-val").textContent   = contact.status;
 
 // Init utilities
 initFilters(byId("project-filters"), projectFilters, projects, byId("projects-grid"));
+initFilters(byId("experience-filters"), experienceFilters, experience, byId("experience-grid"));
 initChart(byId("skillsChart"), skills);
 initAnimations();
 

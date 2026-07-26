@@ -1,52 +1,20 @@
-export const projectFilters = ["All", "Web App", "Landing Page", "Dashboard"];
+export const projectFilters = ["App","Notes"];
 
 export const projects = [
   {
-    category: "Web App",
-    title: "Cloud Notes",
-    desc: "A notes workspace with soft gradients, keyboard-first editing, and organized labels.",
-    tags: ["UI", "Productivity", "Motion"],
-    link: "#",
+    category: "Android App",
+    title: "Eling Duit",
+    desc: "Aplikasi android berbasis kotlin yang memungkinkan pengguna melihat dan mencatat pengeluaran dan pemasukan keuangan.",
+    tags: ["Kotlin", "Android Studio"],
+    link: "https://github.com/niken-yora/ElingDuit.git",
     cta: "Open case study",
   },
   {
-    category: "Dashboard",
-    title: "Aurora Metrics",
-    desc: "A calm analytics dashboard for quick scanning, trend reading, and weekly review.",
-    tags: ["Charts", "Dashboards", "Data"],
+    category: "Web APP",
+    title: "Nyong hack-sek",
+    desc: "Web aplikasi laporan bug bounty berbasis Laravel yang membuat tempat penghubung antara Perusahaan dan Ethical Hackern antinya supaya perusahaan bisa menguji keamanan aplikasinya terlebih dahulu sebelum dirilis ke publik.",
+    tags: ["Laravel", "PHP", "VSCode"],
     link: "#",
-    cta: "See dashboard",
-  },
-  {
-    category: "Landing Page",
-    title: "Skyline Studio",
-    desc: "A marketing landing page that leans into mood, atmosphere, and crisp conversion copy.",
-    tags: ["Brand", "Landing", "Visual"],
-    link: "#",
-    cta: "View page",
-  },
-  {
-    category: "Web App",
-    title: "Warm Inbox",
-    desc: "A message triage interface with folders, priorities, and low-friction reading flow.",
-    tags: ["Workflow", "Inbox", "UX"],
-    link: "#",
-    cta: "Open app",
-  },
-  {
-    category: "Dashboard",
-    title: "Sunset Planner",
-    desc: "A compact planning tool for tasks, focus windows, and gentle reminders.",
-    tags: ["Planning", "Tasks", "Tools"],
-    link: "#",
-    cta: "See planner",
-  },
-  {
-    category: "Landing Page",
-    title: "Golden Hour",
-    desc: "An event page with a cinematic hero, stacked details, and soft calls to action.",
-    tags: ["Event", "Hero", "Story"],
-    link: "#",
-    cta: "Open page",
+    cta: "Open case study",
   },
 ];
