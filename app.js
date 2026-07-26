@@ -29,14 +29,21 @@ if (aboutContainer && profile.aboutParagraphs) {
   byId("profile-about").textContent = profile.about;
 }
 
-// Tech Profile
+// Tech Profile & Bento Cards
 if (profile.techProfile) {
-  if (byId("tech-status")) byId("tech-status").textContent = profile.techProfile.status;
+  if (byId("tech-status")) byId("tech-status").textContent = profile.techProfile.status || "Active";
   if (byId("tech-callsign")) byId("tech-callsign").textContent = profile.techProfile.callsign;
   if (byId("tech-base")) byId("tech-base").textContent = profile.techProfile.base;
   if (byId("tech-institution")) byId("tech-institution").textContent = profile.techProfile.institution;
-  if (byId("tech-toolkit")) byId("tech-toolkit").textContent = profile.techProfile.toolkit;
   if (byId("tech-specialty")) byId("tech-specialty").textContent = profile.techProfile.specialty;
+
+  const chipsContainer = byId("tech-toolkit-chips");
+  if (chipsContainer) {
+    const tools = Array.isArray(profile.techProfile.toolkit)
+      ? profile.techProfile.toolkit
+      : (profile.techProfile.toolkit || "").split(",").map(t => t.trim());
+    chipsContainer.innerHTML = tools.map(tool => `<span class="toolkit-chip">${tool}</span>`).join("");
+  }
 }
 
 // Render sections

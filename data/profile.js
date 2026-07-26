@@ -11,8 +11,9 @@ export const profile = {
     callsign: "Yora",
     base: "Cilacap, Jawa Tengah",
     institution: "Politeknik Negeri Cilacap",
-    toolkit: "BurpSuite, VS-Code, android studio",
-    specialty: "Blue Team"
+    status: "Active Learner & Open to Collab",
+    toolkit: ["BurpSuite", "VS Code", "Android Studio", "Wireshark", "Nmap"],
+    specialty: "Blue Team & Cyber Defense"
   },
   stats: [
     { value: "12+", label: "Finished builds" },
