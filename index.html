@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Niken Yora — Portfolio</title>
+    <title>Niken Prita Laura — Cybersecurity Portfolio</title>
     <meta
       name="description"
-      content="Minimalist sunset-to-night portfolio of Niken Yora. Creative digital experience builder."
+      content="Cybersecurity Enthusiast, CTF Player, and IT Support Portfolio of Niken Prita Laura."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,9 +19,70 @@
     <script type="module" src="app.js"></script>
   </head>
   <body>
+    <!-- =========================================================
+         DYNAMIC MULTI-LAYER PARALLAX SUNSET BACKDROP
+         ========================================================= -->
+    <div aria-hidden="true" class="artwork-background" id="parallax-root">
+      <!-- Layer 1: Sky & Stars (~0.08x parallax) -->
+      <div class="parallax-layer" id="layer-sky">
+        <div id="stars-layer"></div>
+      </div>
+      <!-- Layer 2: Glowing Sun & Corona (~0.22x parallax, setting on scroll) -->
+      <div class="parallax-layer" id="layer-sun">
+        <div class="hero-sun-container">
+          <div class="sun-disk"></div>
+        </div>
+        <div class="horizon-glow"></div>
+      </div>
+      <!-- Layer 3: Sunset Cloud Waves (~0.35x parallax) -->
+      <div class="parallax-layer" id="layer-clouds">
+        <svg class="cloud-waves" preserveAspectRatio="none" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg">
+          <path d="M-100,280 C200,200 450,330 760,250 C1080,170 1300,290 1540,220 L1540,550 L-100,550 Z" fill="rgba(214, 72, 108, 0.16)"></path>
+          <path d="M-100,420 C240,360 480,480 820,400 C1120,330 1340,430 1540,370 L1540,680 L-100,680 Z" fill="rgba(246, 115, 77, 0.28)"></path>
+          <path d="M-100,510 C320,480 640,560 980,490 C1240,440 1400,520 1540,470 L1540,780 L-100,780 Z" fill="rgba(255, 170, 41, 0.2)"></path>
+        </svg>
+      </div>
+      <!-- Layer 4: Distant Mountains (~0.48x parallax) -->
+      <div class="parallax-layer" id="layer-mtn-back">
+        <svg class="vector-mountain-layer" preserveAspectRatio="none" viewBox="0 0 1440 460" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="mtnBackGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+              <stop offset="0%" stop-color="#69308e"></stop>
+              <stop offset="50%" stop-color="#4a216d"></stop>
+              <stop offset="100%" stop-color="#321650"></stop>
+            </linearGradient>
+            <linearGradient id="mtnMidGrad" x1="0%" x2="0%" y1="0%" y2="100%">
+              <stop offset="0%" stop-color="#481e74"></stop>
+              <stop offset="60%" stop-color="#2d134d"></stop>
+              <stop offset="100%" stop-color="#1e0c38"></stop>
+            </linearGradient>
+          </defs>
+          <path d="M0,280 Q210,210 380,260 T760,240 T1140,220 T1440,250 L1440,460 L0,460 Z" fill="url(#mtnBackGrad)"></path>
+          <path d="M0,320 C180,260 290,320 460,270 C640,220 720,330 920,280 C1100,230 1260,330 1440,260 L1440,460 L0,460 Z" fill="url(#mtnMidGrad)"></path>
+        </svg>
+      </div>
+      <!-- Layer 5: Foreground Rolling Dusk Slopes (~0.72x parallax) -->
+      <div class="parallax-layer" id="layer-mtn-front">
+        <svg class="vector-mountain-layer" preserveAspectRatio="none" viewBox="0 0 1440 460" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="mtnFrontGrad" x1="0%" x2="0%" y1="0%" y2="100%">
+              <stop offset="0%" stop-color="#281146"></stop>
+              <stop offset="100%" stop-color="#130a27"></stop>
+            </linearGradient>
+          </defs>
+          <path d="M0,360 C140,310 260,360 410,310 C620,240 760,360 980,310 C1180,260 1310,340 1440,290 L1440,460 L0,460 Z" fill="url(#mtnFrontGrad)"></path>
+        </svg>
+      </div>
+    </div>
+    <div aria-hidden="true" class="page-vignette"></div>
     <header class="topbar">
-      <a class="brand" href="#home">NY</a>
-      <nav class="nav">
+      <a class="brand" href="#home">NPL</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="main-nav">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="nav" id="main-nav">
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#certs">Credentials</a>
@@ -37,12 +98,12 @@
       <section class="hero section">
         <div class="hero-center">
           <h1 class="hero-title">
-            <span id="profile-name">Niken Yora</span>
-            <span class="hero-title-accent">Exploring Cybersecurity Under the Sunset Glow</span>
+            <span id="profile-name">Niken Prita Laura</span>
+            <span class="hero-title-accent">Cybersecurity Enthusiast | CTF Player | IT Support</span>
           </h1>
 
           <p class="lede" id="profile-summary">
-            I craft warm, intentional digital experiences that feel like a golden hour — soft, luminous, and impossible to forget.
+            Mahasiswa D4 Rekayasa Keamanan Siber di Politeknik Negeri Cilacap dengan spesialisasi pada Web Penetration Testing dan Network Administration.
           </p>
 
           <div class="hero-actions">
@@ -63,8 +124,8 @@
           </div>
 
           <div class="hero-focus">
-            <span>Currently crafting</span>
-            <strong id="profile-nickname">Minimal UI Systems</strong>
+            <span>Specialty focus</span>
+            <strong id="profile-nickname">Web Pentest & Network Admin</strong>
           </div>
         </div>
       </section>
@@ -72,7 +133,7 @@
       <section class="section" id="about">
         <div class="section-head">
           <p class="eyebrow">01 / OVERVIEW</p>
-          <h2>Tentang Saya<br></h2>
+          <h2>Tentang Saya</h2>
         </div>
         <div class="about-layout">
           <!-- Left side: 2x2 Bento Grid -->
@@ -86,11 +147,11 @@
                     <polyline points="12 6 12 12 16 14"></polyline>
                   </svg>
                 </div>
-                <span class="tech-badge"><span class="dot-active"></span> <span id="tech-status">Active</span></span>
+                <span class="tech-badge"><span class="dot-active"></span> <span id="tech-status">D4 Rekayasa Keamanan Siber</span></span>
               </div>
               <div class="bento-card-body">
                 <span class="bento-label">CALLSIGN</span>
-                <h3 class="bento-title" id="tech-callsign">Yora</h3>
+                <h3 class="bento-title" id="tech-callsign">Laura</h3>
               </div>
             </div>
 
@@ -106,7 +167,7 @@
               </div>
               <div class="bento-card-body">
                 <span class="bento-label">SPECIALTY</span>
-                <h3 class="bento-title" id="tech-specialty">Blue Team</h3>
+                <h3 class="bento-title" id="tech-specialty">Web Pentest & Network Admin</h3>
               </div>
             </div>
 
@@ -124,7 +185,7 @@
               <div class="bento-card-body bento-meta-stack">
                 <div class="meta-item">
                   <span class="meta-bullet">•</span>
-                  <span id="tech-base" class="meta-val">Cilacap, Jawa Tengah</span>
+                  <span id="tech-base" class="meta-val">Cilacap, Indonesia</span>
                 </div>
                 <div class="meta-item">
                   <span class="meta-bullet">•</span>
@@ -155,7 +216,7 @@
           <!-- Right side: Glassmorphic Bio Container -->
           <div class="about-text-card">
             <div class="about-text-header">
-              <span class="bio-pill">BIO // STORY</span>
+              <span class="bio-pill">PROFIL // SINGKAT</span>
             </div>
             <div class="about-text" id="about-text-container">
               <!-- Text rendered from data/profile.js -->
@@ -167,11 +228,13 @@
       <section class="section" id="skills">
         <div class="section-head">
           <p class="eyebrow">02 / Skills</p>
-          <h2>Structure over noise.</h2>
+          <h2>Keahlian & Kompetensi Teknis</h2>
         </div>
         <div class="skills-layout">
           <article class="card skill-chart-card">
-            <canvas id="skillsChart" height="280"></canvas>
+            <div class="chart-wrapper">
+              <canvas id="skillsChart"></canvas>
+            </div>
           </article>
           <article class="card skill-list-card">
             <div id="skills-list" class="skills-list"></div>
@@ -182,7 +245,7 @@
       <section class="section" id="certs">
         <div class="section-head">
           <p class="eyebrow">03 / Credentials</p>
-          <h2>Milestones and certifications.</h2>
+          <h2>Sertifikasi, Prestasi & Pendidikan</h2>
         </div>
         <div id="certs-list"></div>
       </section>
@@ -201,7 +264,7 @@
       <section class="section" id="experience">
         <div class="section-head">
           <p class="eyebrow">05 / Experience</p>
-          <h2>Internships & Volunteer Work.</h2>
+          <h2>Pengalaman Kerja & Kepanitiaan</h2>
         </div>
         <div class="project-stage">
           <div class="filters" id="experience-filters" aria-label="Experience filters"></div>
@@ -212,20 +275,38 @@
       <section class="section" id="contact">
         <div class="section-head">
           <p class="eyebrow">06 / Contact</p>
-          <h2>Let's connect.</h2>
+          <h2>Mari Terhubung</h2>
         </div>
         <div class="social-grid">
-          <!-- GitHub -->
-          <a href="https://github.com/" id="contact-github-link" target="_blank" rel="noreferrer" class="social-card card">
+          <!-- WhatsApp / Telepon -->
+          <a href="https://wa.me/6285726278984" id="contact-phone-link" target="_blank" rel="noreferrer" class="social-card card">
             <div class="social-card-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-                <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
               </svg>
             </div>
             <div class="social-card-info">
-              <span class="social-card-label">GitHub</span>
-              <span class="social-card-val" id="contact-github-val">github.com/niken-yora</span>
+              <span class="social-card-label">WhatsApp / Telepon</span>
+              <span class="social-card-val" id="contact-phone-val">085726278984</span>
+            </div>
+            <div class="social-card-arrow" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
+                <path d="M2.5 11.5L11.5 2.5M11.5 2.5H5.5M11.5 2.5V8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </a>
+
+          <!-- Email -->
+          <a href="mailto:nikenpritalaura@gmail.com" id="contact-email-link" class="social-card card">
+            <div class="social-card-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="3"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </svg>
+            </div>
+            <div class="social-card-info">
+              <span class="social-card-label">Email</span>
+              <span class="social-card-val" id="contact-email-val">nikenpritalaura@gmail.com</span>
             </div>
             <div class="social-card-arrow" aria-hidden="true">
               <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
@@ -235,7 +316,7 @@
           </a>
 
           <!-- LinkedIn -->
-          <a href="https://linkedin.com/" id="contact-linkedin-link" target="_blank" rel="noreferrer" class="social-card card">
+          <a href="https://linkedin.com/in/niken-prita-laura" id="contact-linkedin-link" target="_blank" rel="noreferrer" class="social-card card">
             <div class="social-card-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
@@ -254,37 +335,17 @@
             </div>
           </a>
 
-          <!-- Email -->
-          <a href="mailto:niken.yora@email.com" id="contact-email-link" class="social-card card">
+          <!-- GitHub -->
+          <a href="https://github.com/niken-yora" id="contact-github-link" target="_blank" rel="noreferrer" class="social-card card">
             <div class="social-card-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="3"></rect>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                <path d="M9 18c-4.51 2-5-2-7-2"></path>
               </svg>
             </div>
             <div class="social-card-info">
-              <span class="social-card-label">Email</span>
-              <span class="social-card-val" id="contact-email-val">niken.yora@email.com</span>
-            </div>
-            <div class="social-card-arrow" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
-                <path d="M2.5 11.5L11.5 2.5M11.5 2.5H5.5M11.5 2.5V8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </a>
-
-          <!-- Instagram -->
-          <a href="https://instagram.com/" id="contact-instagram-link" target="_blank" rel="noreferrer" class="social-card card">
-            <div class="social-card-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-              </svg>
-            </div>
-            <div class="social-card-info">
-              <span class="social-card-label">Instagram</span>
-              <span class="social-card-val" id="contact-instagram-val">@niken.yora</span>
+              <span class="social-card-label">GitHub</span>
+              <span class="social-card-val" id="contact-github-val">github.com/niken-yora</span>
             </div>
             <div class="social-card-arrow" aria-hidden="true">
               <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
@@ -296,13 +357,13 @@
 
         <div class="contact-status-card" style="margin-top: 2rem; max-width: 480px;">
           <span class="status-dot"></span>
-          <span id="contact-status-val">Available for Q3/Q4 Projects &amp; Collaborations</span>
+          <span id="contact-status-val">Available for Internship &amp; Collaborations</span>
         </div>
       </section>
     </main>
 
     <footer class="footer">
-      <p>&copy; 2026 Niken Yora — Sunset to Night Minimalist UI.</p>
+      <p>&copy; 2026 Niken Prita Laura — Cybersecurity Portfolio.</p>
     </footer>
   </body>
 </html>

@@ -1,11 +1,13 @@
 export const contact = {
-  email: "nikenpritalaura@email.com",
-  emailLink: "mailto:niken.yora@email.com",
+  phone: "085726278984",
+  phoneLink: "https://wa.me/6285726278984",
+  email: "nikenpritalaura@gmail.com",
+  emailLink: "mailto:nikenpritalaura@gmail.com",
   github: "github.com/niken-yora",
   githubLink: "https://github.com/niken-yora",
   linkedin: "linkedin.com/in/niken-prita-laura",
   linkedinLink: "https://linkedin.com/in/niken-prita-laura",
-  instagram: "@crying1906",
+  instagram: "@niken.yora",
   instagramLink: "https://instagram.com/niken.yora",
-  status: "Available for project"
+  status: "Available for Internship & Collaborations"
 };

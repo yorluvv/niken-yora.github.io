@@ -13,6 +13,8 @@ import { initChart } from "./utils/chart.js";
 import { initFilters } from "./utils/filters.js";
 import { initAnimations } from "./utils/animations.js";
 import { initParticles } from "./utils/particles.js";
+import { initParallax, initSkyStars } from "./utils/parallax.js";
+import { initMobileNav } from "./utils/nav.js";
 
 const byId = (id) => document.getElementById(id);
 
@@ -20,6 +22,8 @@ const byId = (id) => document.getElementById(id);
 if (byId("profile-name"))     byId("profile-name").textContent     = profile.name;
 if (byId("profile-nickname")) byId("profile-nickname").textContent = profile.nickname;
 if (byId("profile-summary"))  byId("profile-summary").textContent  = profile.summary;
+const heroAccent = document.querySelector(".hero-title-accent");
+if (heroAccent && profile.tagline) heroAccent.textContent = profile.tagline;
 
 // About text (paragraphs)
 const aboutContainer = byId("about-text-container");
@@ -63,12 +67,19 @@ if (byId("contact-linkedin-link"))  byId("contact-linkedin-link").href       = c
 if (byId("contact-instagram-val"))  byId("contact-instagram-val").textContent= contact.instagram;
 if (byId("contact-instagram-link")) byId("contact-instagram-link").href      = contact.instagramLink;
 if (byId("contact-status-val"))     byId("contact-status-val").textContent   = contact.status;
+if (byId("contact-phone-val"))      byId("contact-phone-val").textContent    = contact.phone;
+if (byId("contact-phone-link"))     byId("contact-phone-link").href          = contact.phoneLink;
 
 // Init utilities
 initFilters(byId("project-filters"), projectFilters, projects, byId("projects-grid"));
 initFilters(byId("experience-filters"), experienceFilters, experience, byId("experience-grid"));
 initChart(byId("skillsChart"), skills);
 initAnimations();
+initMobileNav();
 
 // Sunset particle system — floating amber embers
 initParticles(byId("hero-particles"));
+
+// Multi-layer Sunset Parallax
+initSkyStars();
+initParallax();

@@ -35,6 +35,17 @@
   /* Scrollbar */
   scrollbar-color: var(--sunset-amber) var(--bg-midnight);
   scrollbar-width: thin;
+
+  /* Sunset Vector Landscape Parallax Tokens */
+  --sky-top: #1b164a;
+  --sky-mid1: #2a1b5c;
+  --sky-mid2: #5b2368;
+  --sky-rose: #aa3167;
+  --sky-salmon: #db505d;
+  --sky-warm: #f6734d;
+  --sun-bright: #ffe654;
+  --sun-core: #ffaa29;
+  --sun-deep: #ff7033;
 }
 
 /* ─── RESET & BASE ─── */
@@ -56,20 +67,151 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Atmospheric Twilight Dusk Gradient with Top Ambient Glow */
-  background: 
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(217, 103, 72, 0.18) 0%, rgba(240, 168, 93, 0.08) 45%, transparent 100%),
-    linear-gradient(
-      180deg,
-      #1B0C1A 0%,
-      #241021 14%,
-      #2C1425 28%,
-      #220E1F 45%,
-      #170A1A 65%,
-      #0E0513 85%,
-      #08040C 100%
-    );
-  background-attachment: scroll;
+  background-color: #130a27;
+  position: relative;
+}
+
+/* =========================================================
+   DYNAMIC MULTI-LAYER PARALLAX SUNSET BACKDROP
+   ========================================================= */
+.artwork-background {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    var(--sky-top) 0%,
+    var(--sky-mid1) 22%,
+    var(--sky-mid2) 44%,
+    var(--sky-rose) 64%,
+    var(--sky-salmon) 80%,
+    var(--sky-warm) 96%
+  );
+}
+
+.parallax-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  pointer-events: none;
+}
+
+#stars-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 52%;
+  pointer-events: none;
+}
+
+.star-speck {
+  position: absolute;
+  background-color: #ffffff;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.85));
+  animation: gentleTwinkle 4s ease-in-out infinite alternate;
+}
+
+@keyframes gentleTwinkle {
+  0% { opacity: 0.25; transform: scale(0.85); }
+  50% { opacity: 0.95; transform: scale(1.15); }
+  100% { opacity: 0.35; transform: scale(0.9); }
+}
+
+.cloud-waves {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.78;
+}
+
+.hero-sun-container {
+  position: absolute;
+  left: 50%;
+  bottom: 12vh;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.sun-disk {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 40%, var(--sun-bright) 0%, var(--sun-core) 62%, var(--sun-deep) 100%);
+  box-shadow: 
+    0 0 70px rgba(255, 170, 41, 0.85),
+    0 0 140px rgba(255, 112, 51, 0.65),
+    0 0 240px rgba(219, 80, 93, 0.45);
+  animation: sunPulse 7s ease-in-out infinite alternate;
+}
+
+@keyframes sunPulse {
+  0% { transform: scale(0.98); filter: brightness(0.98); }
+  100% { transform: scale(1.02); filter: brightness(1.06); }
+}
+
+.horizon-glow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4vh;
+  height: 38vh;
+  background: radial-gradient(ellipse at 50% 90%, rgba(255, 190, 80, 0.42) 0%, rgba(246, 115, 77, 0.3) 45%, transparent 75%);
+  pointer-events: none;
+}
+
+.vector-mountain-layer {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 48vh;
+  min-height: 290px;
+  pointer-events: none;
+}
+
+.page-vignette {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60vh;
+  background: linear-gradient(to top, rgba(19, 10, 39, 0.94) 0%, rgba(19, 10, 39, 0.6) 45%, transparent 100%);
+  z-index: -3;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .hero-sun-container {
+    width: 200px;
+    height: 200px;
+    bottom: 10vh;
+  }
+  .sun-disk {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sun-disk {
+    animation: none !important;
+  }
+  .parallax-layer {
+    transform: none !important;
+  }
 }
 
 a {
@@ -115,6 +257,16 @@ button, input, textarea {
   font-size: 1.05rem;
   letter-spacing: 0.06em;
   color: var(--ink-light);
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .nav {
@@ -233,15 +385,15 @@ h2 {
   gap: 0.6rem;
   padding: 0.45rem 1.15rem;
   border-radius: 999px;
-  border: 1px solid rgba(240, 168, 93, 0.25);
-  background: rgba(240, 168, 93, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--sunset-gold);
+  color: #FFFFFF;
   margin-bottom: 2rem;
   animation: fadeUp 0.9s cubic-bezier(0.32,0.72,0,1) both;
 }
@@ -250,8 +402,8 @@ h2 {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: var(--sunset-gold);
-  box-shadow: 0 0 8px var(--sunset-gold);
+  background-color: var(--sun-bright);
+  box-shadow: 0 0 8px var(--sun-bright);
   animation: dotPulse 2.4s ease-in-out infinite;
 }
 
@@ -274,21 +426,26 @@ h2 {
   display: block;
 }
 
-/* First line: Name in high-contrast white */
+/* First line: Name in clean pure white */
 .hero-title > span:first-child {
   color: #FFFFFF;
+  text-shadow: 0 4px 20px rgba(10, 5, 24, 0.75);
 }
 
-/* Second line: Warm sunset gold accent */
+/* Second line: Clean pure white matching reference artwork */
 .hero-title-accent {
-  color: var(--sunset-gold);
-  font-size: clamp(2.7rem, 5.8vw, 4.8rem);
-  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  text-shadow: 0 4px 20px rgba(10, 5, 24, 0.75);
+  font-size: clamp(1.4rem, 2.8vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-top: 0.5rem;
+  line-height: 1.25;
 }
 
 /* Third line: Soft italic subtitle with descender reserve */
 .hero-title-sub {
-  color: var(--sunset-peach);
+  color: rgba(255, 255, 255, 0.85);
   font-size: clamp(1.9rem, 3.8vw, 3.2rem);
   font-weight: 400;
   font-style: italic;
@@ -299,12 +456,13 @@ h2 {
 }
 
 .hero .lede {
-  max-width: 40rem;
-  font-size: 1.125rem;
-  color: var(--ink-muted);
+  max-width: 42rem;
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.7;
   margin: 0 auto 2.5rem;
   font-weight: 400;
+  text-shadow: 0 2px 10px rgba(10, 5, 24, 0.6);
   animation: fadeUp 1s cubic-bezier(0.32,0.72,0,1) 0.2s both;
 }
 
@@ -324,7 +482,7 @@ h2 {
   gap: 0.65rem;
   margin-top: 3rem;
   font-size: 0.83rem;
-  color: var(--ink-dim);
+  color: rgba(255, 255, 255, 0.75);
   font-family: var(--font-mono);
   animation: fadeUp 1s cubic-bezier(0.32,0.72,0,1) 0.4s both;
 }
@@ -335,8 +493,8 @@ h2 {
 }
 
 .hero-focus strong {
-  color: var(--sunset-gold);
-  font-weight: 500;
+  color: var(--sun-bright);
+  font-weight: 600;
 }
 
 @keyframes fadeUp {
@@ -468,6 +626,10 @@ h2 {
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
     inset 0 0 24px rgba(240, 168, 93, 0.03);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s, box-shadow 0.35s, background 0.35s;
+
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .card:hover {
@@ -745,33 +907,45 @@ h2 {
   50% { opacity: 0.5; transform: scale(0.8); }
 }
 
-@media (max-width: 900px) {
-  .about-layout {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-}
 
-@media (max-width: 550px) {
-  .bento-grid {
-    grid-template-columns: 1fr;
-  }
-  .bento-col-span {
-    grid-column: span 1;
-  }
-}
 
 /* ─── SKILLS SECTION ─── */
 .skills-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 1.5rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .skill-chart-card, .skill-list-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.skill-chart-card {
+  min-height: 380px;
+  padding: 1.5rem;
+  align-items: center;
+}
+
+.chart-wrapper {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+#skillsChart {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100%;
 }
 
 .skills-list {
@@ -1004,7 +1178,7 @@ h2 {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--ink-dim);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .social-card-val {
@@ -1056,53 +1230,11 @@ h2 {
 .footer {
   padding: 3rem 6vw;
   text-align: center;
-  color: var(--ink-dim);
+  color: rgba(255, 255, 255, 0.75);
   font-size: 0.85rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
   z-index: 1;
-}
-
-/* ─── RESPONSIVE BREAKPOINTS ─── */
-@media (max-width: 992px) {
-  .about-grid,
-  .skills-layout,
-  .contact-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .cards-grid {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 640px) {
-  .topbar {
-    padding: 0.85rem 1.25rem;
-    width: calc(100% - 2.5rem);
-    left: 1.25rem;
-    right: 1.25rem;
-    box-sizing: border-box;
-  }
-  .nav {
-    gap: 1rem;
-    font-size: 0.82rem;
-  }
-  .section {
-    width: calc(100% - 2.5rem);
-    padding: 4.5rem 0;
-  }
-  .hero {
-    padding-top: 6.5rem;
-    min-height: auto;
-  }
-  .hero-title {
-    font-size: 2.6rem;
-  }
-  .cards-grid,
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ─── CERT TABS ─── */
@@ -1239,4 +1371,465 @@ h2 {
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* =========================================================
+   COMPREHENSIVE RESPONSIVE DESIGN SYSTEM
+   Mobile-first & device-tailored breakpoints (320px - 4K)
+   ========================================================= */
+
+/* ─── LARGE SCREENS / 2K+ (min-width: 1440px) ─── */
+@media (min-width: 1440px) {
+  .section {
+    width: min(1280px, calc(100% - 4rem));
+  }
+}
+
+/* ─── LAPTOPS & DESKTOP (max-width: 1120px) ─── */
+@media (max-width: 1120px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+/* ─── TABLETS (max-width: 900px) ─── */
+@media (max-width: 900px) {
+  .about-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+  
+  .skills-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .skill-chart-card {
+    min-height: 330px;
+    height: auto;
+    padding: 1.25rem 0.85rem;
+  }
+
+  .chart-wrapper {
+    height: 290px;
+  }
+
+  .topbar {
+    gap: 1.5rem;
+    padding: 0.7rem 1.4rem;
+  }
+
+  .nav {
+    gap: 1.25rem;
+    font-size: 0.84rem;
+  }
+}
+
+/* ─── MOBILE LANDSCAPE & PHABLETS (max-width: 768px) ─── */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  main {
+    overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .section {
+    width: calc(100% - 2rem);
+    margin: 0 auto;
+    padding: 4.5rem 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    scroll-margin-top: 5.5rem;
+  }
+
+  .section-head {
+    margin-bottom: 2rem;
+  }
+
+  .section-head h2 {
+    font-size: clamp(1.75rem, 5vw, 2.3rem);
+    line-height: 1.2;
+  }
+
+  .section-head .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+  }
+
+  /* Topbar Mobile Navbar */
+  .topbar {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 2rem);
+    max-width: 520px;
+    box-sizing: border-box;
+    padding: 0.65rem 1.15rem;
+    border-radius: 999px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0;
+    z-index: 1000;
+  }
+
+  .brand {
+    font-size: 1.05rem;
+    font-weight: 800;
+  }
+
+  /* Animated Hamburger Toggle */
+  .nav-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    cursor: pointer;
+    transition: background 0.25s, border-color 0.25s;
+    touch-action: manipulation;
+  }
+
+  .nav-toggle:hover, .nav-toggle:focus-visible {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .nav-toggle-bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+    transform-origin: center;
+  }
+
+  /* Active/Open Hamburger Animation */
+  .topbar.is-open .nav-toggle-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .topbar.is-open .nav-toggle-bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .topbar.is-open .nav-toggle-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Mobile Glassmorphic Navigation Drawer */
+  .nav {
+    position: absolute;
+    top: calc(100% + 0.65rem);
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1.15rem;
+    background: rgba(19, 10, 39, 0.95);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid rgba(255, 175, 140, 0.22);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-8px) scale(0.98);
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.3s;
+  }
+
+  .topbar.is-open .nav {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .nav a {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.88);
+    min-height: 44px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .nav a::after {
+    display: none;
+  }
+
+  .nav a:hover,
+  .nav a:active {
+    background: rgba(255, 122, 41, 0.16);
+    color: var(--sun-bright);
+  }
+
+  /* Hero Section Mobile */
+  .hero {
+    padding-top: 7rem;
+    min-height: auto;
+  }
+
+  .hero-title {
+    margin-bottom: 1.4rem;
+  }
+
+  .hero-title > span:first-child {
+    font-size: clamp(2.3rem, 7.5vw, 3.2rem);
+    line-height: 1.1;
+  }
+
+  .hero-title-accent {
+    font-size: clamp(1.15rem, 3.6vw, 1.45rem);
+    line-height: 1.35;
+    margin-top: 0.6rem;
+  }
+
+  .hero .lede {
+    font-size: 1rem;
+    line-height: 1.65;
+    padding: 0 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-focus {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+  }
+
+  /* Skills Section Mobile */
+  .skills-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .skill-chart-card {
+    min-height: 300px;
+    height: auto;
+    padding: 1.15rem 0.6rem;
+    overflow: hidden;
+  }
+
+  .chart-wrapper {
+    height: 270px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Contact Social Grid (1 column on tablet/mobile) */
+  .social-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .social-card {
+    padding: 1.25rem 1.4rem;
+    gap: 1rem;
+  }
+
+  .social-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+
+  .social-card-val {
+    font-size: 0.95rem;
+  }
+
+  .social-card-arrow {
+    opacity: 0.65;
+    transform: none;
+  }
+
+  /* Cards Grid (1 column on mobile) */
+  .cards-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.15rem;
+    width: 100%;
+  }
+
+  .card {
+    padding: 1.35rem 1.4rem;
+  }
+
+  /* Scrollable tabs for native app swipe feeling */
+  .cert-tabs,
+  .filters {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.5rem;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cert-tabs::-webkit-scrollbar,
+  .filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cert-tab,
+  .filters button {
+    flex-shrink: 0;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.84rem;
+    min-height: 40px;
+  }
+}
+
+/* ─── STANDARD MOBILE PHONES (max-width: 580px) ─── */
+@media (max-width: 580px) {
+  .section {
+    width: calc(100% - 1.75rem);
+    margin: 0 auto;
+  }
+
+  /* Bento Grid goes single-column */
+  .bento-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .bento-col-span {
+    grid-column: span 1;
+  }
+
+  .bento-card {
+    padding: 1.15rem 1.25rem;
+  }
+
+  .about-text-card {
+    padding: 1.35rem 1.25rem;
+  }
+
+  .about-text p {
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+
+  /* Skills chart wrapper for smaller phones */
+  .skill-chart-card {
+    padding: 1rem 0.4rem;
+  }
+
+  .chart-wrapper {
+    height: 250px;
+  }
+
+  /* Hero Actions stacked for easy thumb tap */
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .hero-actions .btn-shell {
+    width: 100%;
+    max-width: 290px;
+    text-align: center;
+  }
+
+  .btn-core {
+    width: 100%;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .hero-focus {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.78rem;
+  }
+
+  .contact-status-card {
+    padding: 0.85rem 1.2rem;
+    font-size: 0.84rem;
+  }
+}
+
+/* ─── EXTRA SMALL PHONES (max-width: 380px: iPhone SE, older Galaxy) ─── */
+@media (max-width: 380px) {
+  .section {
+    width: calc(100% - 1.25rem);
+    margin: 0 auto;
+    padding: 3.5rem 0;
+  }
+
+  .topbar {
+    width: calc(100% - 1.25rem);
+    padding: 0.6rem 0.9rem;
+  }
+
+  .hero-title > span:first-child {
+    font-size: 1.95rem;
+  }
+
+  .hero-title-accent {
+    font-size: 0.98rem;
+  }
+
+  .hero .lede {
+    font-size: 0.92rem;
+  }
+
+  .card {
+    padding: 1.1rem 0.9rem;
+  }
+
+  .skill-chart-card {
+    padding: 0.75rem 0.2rem;
+  }
+
+  .chart-wrapper {
+    height: 230px;
+  }
+
+  .social-card {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .social-card-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .social-card-val {
+    font-size: 0.84rem;
+  }
+
+  .toolkit-chip {
+    font-size: 0.72rem;
+    padding: 0.3rem 0.65rem;
+  }
 }

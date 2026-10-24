@@ -1,9 +1,9 @@
 export const skills = [
-  { label: "memerintah AI", level: 99 },
-  { label: "network security", level: 55 },
-  { label: "CTF challanges", level: 50 },
-  { label: "kotlin", level: 45 },
-  { label: "HTML", level: 65 },
-  { label: "CSS", level: 60 },
-  { label: "Digital Forensic", level: 60},
+  { label: "Web Penetration Testing", shortLabel: ["Web", "Pentesting"], level: 85 },
+  { label: "VAPT & Vulnerability Assessment", shortLabel: ["VAPT &", "Assessment"], level: 80 },
+  { label: "Network Administration", shortLabel: ["Network", "Admin"], level: 85 },
+  { label: "Burp Suite & Wireshark", shortLabel: ["Burp &", "Wireshark"], level: 88 },
+  { label: "Hardware & PC Troubleshooting", shortLabel: ["Hardware &", "Troubleshoot"], level: 90 },
+  { label: "PC Assembly & Maintenance", shortLabel: ["PC Assembly &", "Maintenance"], level: 90 },
+  { label: "CTF Challenges", shortLabel: ["CTF", "Challenges"], level: 85 },
 ];

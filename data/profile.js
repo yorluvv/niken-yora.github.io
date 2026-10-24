@@ -1,24 +1,24 @@
 export const profile = {
-  name: "My Jurnal",
-  nickname: "niken-yora",
-  summary: "Building cybersecurity skills every day",
+  name: "Niken Prita Laura",
+  tagline: "Cybersecurity Enthusiast | CTF Player | IT Support",
+  nickname: "Web Pentest & Network Admin",
+  summary: "Mahasiswa D4 Rekayasa Keamanan Siber di Politeknik Negeri Cilacap dengan spesialisasi pada Web Penetration Testing dan Network Administration.",
   aboutParagraphs: [
-    "Halo, saya <strong>niken</strong>. Ketertarikan saya terhadap cybersecurity berasal dari rasa ingin tahu, tentang bagaimana sebuah sistem bekerja, bagaimana sebuah serangan dapat terjadi, dan bagaimana cara mencegahnya. Karena itu, saya terus belajar dan mengembangkan kemampuan melalui proyek yang diberikan dosen dan eksplorasi mandiri.",
-    "Portofolio ini merupakan tempat saya membagikan perjalanan pembelajaran yang saya dapatkan atau lalui di sepanjang proses. Saya masih terus belajar, dan setiap pengalaman baru menjadi bagian penting dalam perjalanan saya menuju dunia cybersecurity yang lebih luas."
-
+    "Halo, saya <strong>Niken Prita Laura</strong>. Mahasiswa D4 Rekayasa Keamanan Siber di <strong>Politeknik Negeri Cilacap</strong> dengan spesialisasi pada <strong>Web Penetration Testing</strong> dan <strong>Network Administration</strong>.",
+    "Memiliki pengalaman hands-on menangani masalah hardware dan software secara langsung dengan customer, serta tersertifikasi resmi sebagai <em>Junior Ethical Hacker</em>. Aktif memenangkan kompetisi CTF tingkat prodi dan terbiasa berkolaborasi dalam berbagai kepanitiaan kampus."
   ],
   techProfile: {
-    callsign: "Yora",
-    base: "Cilacap, Jawa Tengah",
+    callsign: "Laura",
+    base: "Cilacap, Indonesia",
     institution: "Politeknik Negeri Cilacap",
-    status: "Active Learner & Open to Collab",
-    toolkit: ["BurpSuite", "VS Code", "Android Studio", "Wireshark", "Nmap"],
-    specialty: "Blue Team & Cyber Defense"
+    status: "D4 Rekayasa Keamanan Siber",
+    toolkit: ["Burp Suite", "Wireshark", "Nmap", "VAPT", "Metasploit", "PC Building"],
+    specialty: "Web Pentest & Network Admin"
   },
   stats: [
-    { value: "12+", label: "Finished builds" },
-    { value: "4", label: "Focus areas" },
-    { value: "100%", label: "Data-driven" },
-    { value: "∞", label: "Iteration mood" },
+    { value: "6 Mo", label: "IT Helpdesk Intern" },
+    { value: "4+", label: "Sertifikasi Resmi" },
+    { value: "2x", label: "Juara CTF (1 & 2)" },
+    { value: "2028", label: "Target Lulus D4 RKS" }
   ],
 };
