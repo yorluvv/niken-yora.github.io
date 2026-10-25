@@ -1,6 +1,4 @@
 export const contact = {
-  phone: "085726278984",
-  phoneLink: "https://wa.me/6285726278984",
   email: "nikenpritalaura@gmail.com",
   emailLink: "mailto:nikenpritalaura@gmail.com",
   github: "github.com/niken-yora",
