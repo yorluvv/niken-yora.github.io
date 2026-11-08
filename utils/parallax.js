@@ -1,6 +1,6 @@
 /**
- * Multi-Layer Parallax Engine, Sky Stars Generator & Interactive Ember Particles
- * 60FPS Lerp Tracking (Scroll + Mouse Tilt) & Terminal Typing Simulation
+ * Multi-Layer Parallax Engine & Sky Stars Generator
+ * On-demand Lerp Tracking (Scroll + Mouse Tilt) with idle sleeping to save CPU/battery.
  */
 
 export function initSkyStars() {
@@ -45,29 +45,9 @@ export function initParallax() {
   let targetMouseY = 0;
   let currentScrollY = 0;
   let targetScrollY = 0;
+  let isRunning = false;
 
-  window.addEventListener(
-    "scroll",
-    () => {
-      targetScrollY = window.pageYOffset || document.documentElement.scrollTop;
-    },
-    { passive: true }
-  );
-
-  window.addEventListener(
-    "mousemove",
-    (e) => {
-      targetMouseX = (e.clientX / window.innerWidth) * 2 - 1;
-      targetMouseY = (e.clientY / window.innerHeight) * 2 - 1;
-    },
-    { passive: true }
-  );
-
-  function loop() {
-    mouseX += (targetMouseX - mouseX) * 0.065;
-    mouseY += (targetMouseY - mouseY) * 0.065;
-    currentScrollY += (targetScrollY - currentScrollY) * 0.1;
-
+  function updateTransforms() {
     // Layer 1: Sky & Stars (~0.08x scroll, subtle mouse sway)
     if (layerSky) {
       const y = currentScrollY * 0.08;
@@ -116,189 +96,56 @@ export function initParallax() {
       const my = -mouseY * 5;
       heroTerminal.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
     }
+  }
+
+  function loop() {
+    const dx = targetMouseX - mouseX;
+    const dy = targetMouseY - mouseY;
+    const ds = targetScrollY - currentScrollY;
+
+    if (Math.abs(dx) < 0.0005 && Math.abs(dy) < 0.0005 && Math.abs(ds) < 0.05) {
+      mouseX = targetMouseX;
+      mouseY = targetMouseY;
+      currentScrollY = targetScrollY;
+      updateTransforms();
+      isRunning = false;
+      return;
+    }
+
+    mouseX += dx * 0.065;
+    mouseY += dy * 0.065;
+    currentScrollY += ds * 0.1;
+    updateTransforms();
 
     requestAnimationFrame(loop);
   }
 
-  requestAnimationFrame(loop);
-}
-
-export function initInteractiveEmbers(canvas) {
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  let particles = [];
-  const PARTICLE_COUNT = 65;
-  let canvasW = 0;
-  let canvasH = 0;
-  let mousePos = { x: -1000, y: -1000 };
-
-  function resize() {
-    canvasW = canvas.width = window.innerWidth;
-    canvasH = canvas.height = window.innerHeight;
-  }
-
-  window.addEventListener("resize", () => {
-    resize();
-    if (!prefersReduced && particles.length === 0) {
-      init();
-    }
-  });
-
-  window.addEventListener("mousemove", (e) => {
-    mousePos.x = e.clientX;
-    mousePos.y = e.clientY;
-  });
-
-  const PALETTE = [
-    "255, 230, 84", // Sun Bright
-    "255, 170, 41", // Warm Amber
-    "255, 112, 51", // Sunset Orange
-    "219, 80, 93",  // Sunset Rose
-    "255, 255, 255" // Stardust White
-  ];
-
-  class SunsetEmber {
-    constructor() {
-      this.reset(true);
-    }
-
-    reset(initial = false) {
-      this.x = Math.random() * canvasW;
-      this.y = initial ? Math.random() * canvasH : canvasH + Math.random() * 25;
-      this.radius = Math.random() * 2.2 + 0.8;
-      this.baseRadius = this.radius;
-      this.vy = -(Math.random() * 0.45 + 0.2);
-      this.vx = (Math.random() - 0.5) * 0.35;
-      this.rgb = PALETTE[Math.floor(Math.random() * PALETTE.length)];
-      this.alpha = Math.random() * 0.55 + 0.2;
-      this.baseAlpha = this.alpha;
-      this.pulseSpeed = Math.random() * 0.02 + 0.01;
-      this.pulseVal = Math.random() * Math.PI * 2;
-    }
-
-    update() {
-      if (prefersReduced) return;
-
-      this.pulseVal += this.pulseSpeed;
-      this.y += this.vy;
-      this.x += this.vx + Math.sin(this.pulseVal) * 0.25;
-
-      const dx = mousePos.x - this.x;
-      const dy = mousePos.y - this.y;
-      const dist = Math.hypot(dx, dy);
-      const maxDist = 130;
-
-      if (dist < maxDist) {
-        const angle = Math.atan2(dy, dx);
-        const force = (1 - dist / maxDist) * 1.5;
-        this.x -= Math.cos(angle) * force;
-        this.y -= Math.sin(angle) * force;
-        this.alpha = Math.min(0.95, this.baseAlpha + (1 - dist / maxDist) * 0.5);
-        this.radius = this.baseRadius * 1.4;
-      } else {
-        this.alpha = this.baseAlpha + Math.sin(this.pulseVal) * 0.18;
-        this.radius = this.baseRadius;
-      }
-
-      if (this.y < -20 || this.x < -30 || this.x > canvasW + 30) {
-        this.reset(false);
-      }
-    }
-
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, Math.max(0.2, this.radius), 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${this.rgb}, ${Math.max(0, this.alpha)})`;
-      ctx.shadowColor = `rgba(${this.rgb}, 0.8)`;
-      ctx.shadowBlur = this.radius * 3.5;
-      ctx.fill();
-      ctx.shadowBlur = 0;
-    }
-  }
-
-  function init() {
-    resize();
-    particles = [];
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      particles.push(new SunsetEmber());
-    }
-  }
-
-  function loop() {
-    ctx.clearRect(0, 0, canvasW, canvasH);
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].update();
-      particles[i].draw();
-    }
-    if (!prefersReduced) {
+  function requestTick() {
+    if (!isRunning) {
+      isRunning = true;
       requestAnimationFrame(loop);
     }
   }
 
-  init();
-  if (!prefersReduced) {
-    requestAnimationFrame(loop);
-  } else {
-    loop();
-  }
-}
+  window.addEventListener(
+    "scroll",
+    () => {
+      targetScrollY = window.pageYOffset || document.documentElement.scrollTop;
+      requestTick();
+    },
+    { passive: true }
+  );
 
-export async function initConsoleSimulation(consoleBox) {
-  if (!consoleBox) return;
-  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.addEventListener(
+    "mousemove",
+    (e) => {
+      targetMouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      targetMouseY = (e.clientY / window.innerHeight) * 2 - 1;
+      requestTick();
+    },
+    { passive: true }
+  );
 
-  const commands = [
-    { cmd: "whoami", out: "yora" },
-    { cmd: "cat base.txt", out: "Politeknik Negeri Cilacap — Blue Team & Cyber Defense" },
-    { cmd: "cat toolkit.txt", out: "BurpSuite • Wireshark • Nmap • Android Studio" },
-    { cmd: "status", out: '<span class="c-badge">READY TO DEFEND UNDER THE GLOW</span>' }
-  ];
-
-  consoleBox.innerHTML = "";
-
-  if (prefersReduced) {
-    consoleBox.innerHTML = commands
-      .map(
-        (c) => `
-        <div class="c-line"><span class="c-prompt">sec-student@kali:~$</span> <span class="c-cmd">${c.cmd}</span></div>
-        <div class="c-line c-out">${c.out}</div>
-      `
-      )
-      .join("");
-    return;
-  }
-
-  for (let i = 0; i < commands.length; i++) {
-    const item = commands[i];
-
-    const line = document.createElement("div");
-    line.className = "c-line";
-    line.innerHTML = `<span class="c-prompt">sec-student@kali:~$</span> <span class="c-cmd"></span><span class="blinking-caret"></span>`;
-    consoleBox.appendChild(line);
-
-    const cmdTarget = line.querySelector(".c-cmd");
-    const caret = line.querySelector(".blinking-caret");
-
-    for (let char of item.cmd) {
-      cmdTarget.textContent += char;
-      await new Promise((r) => setTimeout(r, 40));
-    }
-
-    await new Promise((r) => setTimeout(r, 180));
-    caret.remove();
-
-    const outLine = document.createElement("div");
-    outLine.className = "c-line c-out";
-    outLine.innerHTML = item.out;
-    consoleBox.appendChild(outLine);
-
-    await new Promise((r) => setTimeout(r, 320));
-  }
-
-  const idlePrompt = document.createElement("div");
-  idlePrompt.className = "c-line";
-  idlePrompt.innerHTML = `<span class="c-prompt">sec-student@kali:~$</span> <span class="blinking-caret"></span>`;
-  consoleBox.appendChild(idlePrompt);
+  // Initial draw
+  requestTick();
 }

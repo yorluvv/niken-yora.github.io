@@ -3,7 +3,7 @@ export function renderExperience(container, items) {
   container.innerHTML = items
     .map(
       (item) => `
-        <article class="card experience">
+        <article class="card experience" data-category="${item.category}">
           <div class="tags-row" style="margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
             <span class="tag">${item.category}</span>
             <span class="meta-label" style="font-size: 0.8rem;">${item.date}</span>

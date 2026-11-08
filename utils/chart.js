@@ -1,5 +1,11 @@
 export function initChart(canvas, skills) {
-  if (!window.Chart || !canvas) return;
+  if (!canvas) return;
+  if (!window.Chart) {
+    window.addEventListener("load", () => {
+      if (window.Chart) initChart(canvas, skills);
+    }, { once: true });
+    return;
+  }
   const ctx = canvas.getContext("2d");
 
   const isMobile = window.innerWidth < 640;
