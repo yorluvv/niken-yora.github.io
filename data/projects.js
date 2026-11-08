@@ -6,7 +6,7 @@ export const projects = [
     title: "Eling Duit",
     desc: "Aplikasi android berbasis kotlin yang memungkinkan pengguna melihat dan mencatat pengeluaran dan pemasukan keuangan.",
     tags: ["Kotlin", "Android Studio"],
-    link: "https://github.com/niken-yora/ElingDuit.git",
+    link: "https://github.com/yorluvv/ElingDuit.git",
     cta: "Open case study",
   },
   {

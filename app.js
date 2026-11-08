@@ -68,8 +68,6 @@ function init() {
   if (byId("contact-instagram-val"))  byId("contact-instagram-val").textContent = contact.instagram;
   if (byId("contact-instagram-link")) byId("contact-instagram-link").href       = contact.instagramLink;
   if (byId("contact-status-val"))     byId("contact-status-val").textContent    = contact.status;
-  if (byId("contact-phone-val"))      byId("contact-phone-val").textContent     = contact.phone;
-  if (byId("contact-phone-link"))     byId("contact-phone-link").href           = contact.phoneLink;
 
   // Init utilities
   initFilters(byId("project-filters"), projectFilters, projects, byId("projects-grid"));
