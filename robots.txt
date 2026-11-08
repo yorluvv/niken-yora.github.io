@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yorluvv.github.io/niken-yora.github.io/sitemap.xml
